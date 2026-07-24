@@ -7,13 +7,13 @@
     <parent>
         <artifactId>profi-pom</artifactId>
         <groupId>fr.proline</groupId>
-        <version>1.3.0</version>
+        <version>1.4.0-SNAPSHOT</version>
     </parent>
 
     <properties>
         <thermoAccess.version>1.0.3.0</thermoAccess.version>
-        <thermoAccess.classifier>win-x64</thermoAccess.classifier>
-        <mzdb.version>1.4.1</mzdb.version>
+        <thermoAccess.classifier>windows-x64</thermoAccess.classifier>
+        <mzdb.version>1.5.0-SNAPSHOT</mzdb.version>
         <os.classifier>windows-x64</os.classifier><!-- TODO use profile if ThermoAccess could be in other classifier -->
     </properties>
 
@@ -32,13 +32,15 @@
 
         <dependency>
             <groupId>fr.profi</groupId>
-            <artifactId>mzdb-access_${scala.compat.version}</artifactId>
+            <artifactId>mzdb-access</artifactId>
             <version>${mzdb.version}</version>
+            <classifier>${scala.compat.version}</classifier>
         </dependency>
         <dependency>
             <groupId>fr.profi</groupId>
-            <artifactId>mzdb-processing_${scala.compat.version}</artifactId>
+            <artifactId>mzdb-processing</artifactId>
             <version>${mzdb.version}</version>
+            <classifier>${scala.compat.version}</classifier>
         </dependency>
         <dependency>
             <groupId>fr.profi</groupId>
