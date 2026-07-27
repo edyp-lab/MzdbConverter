@@ -12,9 +12,8 @@
 
     <properties>
         <thermoAccess.version>1.0.3.0</thermoAccess.version>
-        <thermoAccess.classifier>windows-x64</thermoAccess.classifier>
         <mzdb.version>1.5.0-SNAPSHOT</mzdb.version>
-        <os.classifier>windows-x64</os.classifier><!-- TODO use profile if ThermoAccess could be in other classifier -->
+        <os.classifier>windows-x64</os.classifier>
     </properties>
 
     <groupId>fr.profi.msdata</groupId>
@@ -52,20 +51,11 @@
             <artifactId>commons-io</artifactId>
         </dependency>
         <dependency>
-            <groupId>com.oracle</groupId>
-            <artifactId>jdk</artifactId>
-            <version>17.0.3.1</version>
-            <type>zip</type>
-            <classifier>${os.classifier}</classifier>
-            <scope>runtime</scope>
-        </dependency>
-
-        <dependency>
             <groupId>fr.profi</groupId>
             <artifactId>ThermoAccess</artifactId>
             <version>${thermoAccess.version}</version>
             <type>zip</type>
-            <classifier>${thermoAccess.classifier}</classifier>
+            <classifier>${os.classifier}</classifier>
         </dependency>
 
 
@@ -249,9 +239,38 @@
                     <descriptors>
                         <descriptor>src/main/assembly/assembly.xml</descriptor>
                     </descriptors>
-                    <appendAssemblyId>false</appendAssemblyId>
+
                 </configuration>
             </plugin>
         </plugins>
     </build>
+    <profiles>
+        <profile>
+        <!-- This Profile should be set to create a distribution for Windows (64bits) -->
+        <id>windows-x64</id>
+        <activation>
+            <activeByDefault>true</activeByDefault>
+        </activation>
+        <properties>
+            <os.classifier>windows-x64</os.classifier>
+        </properties>
+        <dependencies>
+            <dependency>
+                <groupId>com.oracle</groupId>
+                <artifactId>jdk</artifactId>
+                <version>17.0.3.1</version>
+                <type>zip</type>
+                <classifier>${os.classifier}</classifier>
+                <scope>runtime</scope>
+            </dependency>
+        </dependencies>
+        </profile>
+        <profile>
+            <!-- This Profile should be set to create a distribution for Linux (64bits)    -->
+            <id>linux-x64</id>
+            <properties>
+                <os.classifier>linux-x64</os.classifier>
+            </properties>
+        </profile>
+    </profiles>
 </project>

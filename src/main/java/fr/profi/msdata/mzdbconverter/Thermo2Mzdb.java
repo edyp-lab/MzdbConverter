@@ -89,23 +89,32 @@ public class Thermo2Mzdb {
     // check localisation of the ThermoAccess.exe
 
     String dirName = "";
+    boolean isNotWindows = false;
     try {
       Properties properties = new Properties();
       properties.load(MzDBConverterMain.class.getResourceAsStream("mzdbServerConverter.properties"));
       String version = properties.getProperty("thermoaccess.version", "");
       String classifier = properties.getProperty("thermoaccess.classifier", "");
       dirName = "ThermoAccess-"+version+"-"+classifier;
-
+      if(!classifier.toLowerCase().startsWith("win")){
+        isNotWindows = true;
+      }
     } catch (Exception e) {
       LOGGER.warn("error in start ThermoAccess : can not get current version");
     }
 
     File pathFile = new File(".\\target\\unzip-dependencies\\"+dirName+"\\"); // path for debugging with IDE.
     if (! pathFile.exists()) {
-      pathFile = new File(".\\"+dirName+"\\");
+      pathFile = new File("./"+dirName+"/");
     }
 
-    String absolutePath = pathFile.getAbsolutePath()+"\\ThermoAccess.exe";
+    String thermoAccessExeFile = "ThermoAccess.exe";
+    if(isNotWindows) {
+      thermoAccessExeFile = "./ThermoAccess";
+    }
+    String absolutePath = pathFile.getAbsolutePath()+"/"+thermoAccessExeFile;
+
+
     LOGGER.trace("\nUse ThermoAccess : {}", absolutePath);
 
     ArrayList<String> cmds = new ArrayList<>(1+ argv.length);

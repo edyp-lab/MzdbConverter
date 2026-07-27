@@ -8,11 +8,23 @@ To display the list of option type :
 * mzdbConverter thermo --help
 * mzdbConverter brucker --help
 
+### Linux 
+
+On linux system it may be necessary to 
+* enable excution of scripts. 
+  * `chmod +x ./mzdbConverter.sh`
+  * `chmod +x ./jdk/bin/java`  
+  * `chmod +x ./ThermoAccess-<version>/ThermoAccess`
+
 ## library
 
 This tool can also be used as a library, especially to read metadata from raw files
 
 ## Release History
+
+### 1.4.0
+
+Create distribution for Linux and Windows.
 
 ### 1.3.0
 
